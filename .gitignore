@@ -1,0 +1,9 @@
+gopro_540p/*
+*/*.pyc
+*.pyc
+*.zip
+*.pth
+*.mp4
+*.avi
+__pycache__/*
+logs/*
