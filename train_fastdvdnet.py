@@ -1,21 +1,10 @@
-"""
-Trains a FastDVDnet model.
-
-Copyright (C) 2019, Matias Tassano <matias.tassano@parisdescartes.fr>
-
-This program is free software: you can use, modify and/or
-redistribute it under the terms of the GNU General Public
-License as published by the Free Software Foundation, either
-version 3 of the License, or (at your option) any later
-version. You should have received a copy of this license along
-this program. If not, see <http://www.gnu.org/licenses/>.
-"""
 import time
 import argparse
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from models import FastDVDnet
+#from models import FastDVDnet
+from models import FITVNet
 from dataset import ValDataset
 from dataloaders import train_dali_loader
 from utils import svd_orthogonalization, close_logger, init_logging, normalize_augment
@@ -23,6 +12,7 @@ from train_common import resume_training, lr_scheduler, log_train_psnr, \
 					validate_and_log, save_model_checkpoint
 
 def main(**args):
+	#model = FITVNet()
 	r"""Performs the main training loop
 	"""
 
@@ -49,7 +39,8 @@ def main(**args):
 	torch.backends.cudnn.benchmark = True # CUDNN optimization
 
 	# Create model
-	model = FastDVDnet()
+	#model = FastDVDnet()
+	model = FITVNet()
 	model = nn.DataParallel(model, device_ids=device_ids).cuda()
 
 	# Define loss
@@ -203,7 +194,7 @@ if __name__ == "__main__":
 	argspar.noise_ival[0] /= 255.
 	argspar.noise_ival[1] /= 255.
 
-	print("\n### Training FastDVDnet denoiser model ###")
+	print("\n### Training FITVNet model ###")
 	print("> Parameters:")
 	for p, v in zip(argspar.__dict__.keys(), argspar.__dict__.values()):
 		print('\t{}: {}'.format(p, v))

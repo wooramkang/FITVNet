@@ -145,7 +145,7 @@ class DenBlock(nn.Module):
 class DenBlock2(nn.Module):
 
 	def __init__(self):
-		super(DenBlock, self).__init__()
+		super(DenBlock2, self).__init__()
 		self.chs_inc = 90
 		self.chs_lyr0 = 32
 		self.chs_lyr1 = 64
@@ -238,7 +238,7 @@ class FastDVDnet(nn.Module):
 class FITVNet(nn.Module):
 
 	def __init__(self, K=5):
-		super(FastDVDnet, self).__init__()
+		super(FITVNet, self).__init__()
 		self.num_input_frames = K
 		# Define models of each denoising stage
 		self.temp1 = DenBlock(num_input_frames=K)
@@ -273,7 +273,7 @@ class FITVNet(nn.Module):
 
 		#Second stage
 		video_den_block_1 = self.temp2(pt_K4, pt_K3, pt_K2, pt_K1, pt_K, noise_map)
-		video_den_block_2 = self.temp3(pt_K4, pt_K3, pt_K2, pt_K1, pt_K, noise_map)
+		#video_den_block_2 = self.temp3(pt_K4, pt_K3, pt_K2, pt_K1, pt_K, noise_map)
 
-		return video_den_block_2
+		return video_den_block_1
 
